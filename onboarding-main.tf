@@ -81,7 +81,7 @@ resource "dome9_cloudaccount_azure" "connect-azure-subscription" {
   tenant_id              = var.azure-tenant
   client_id              = azuread_application.cloudguard-app.application_id
   client_password        = azuread_application_password.cloudguard-app-key.value
-  name                   = each.value.display_name
+  name                   = "${each.value.display_name}_${substr(each.value.subscription_id, -4,-1)}"
   subscription_id        = each.value.subscription_id
 
   depends_on = [azurerm_role_assignment.cloudguard-app-custom-role-assign, azurerm_role_assignment.cloudguard-app-reader-role-assign]
